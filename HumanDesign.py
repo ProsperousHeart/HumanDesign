@@ -18,8 +18,8 @@ def welcome():
     return chk
 
 
-def export_data():
-    pass
+def export_data(center_list):
+    print("Exporting data is not yet coded. Exiting.")
 
 
 def import_data():
@@ -128,7 +128,7 @@ def start_new():
 
     # get gates (& channels) from user
 
-    print("\nThis rest not yet coded. Exiting.")
+    print("\nThe rest of the section for new data not yet coded.")
 
 
 if __name__ == "__main__":
@@ -140,5 +140,8 @@ if __name__ == "__main__":
         import_data()
     else:
         start_new()
+        export_data()
 
-        # need to confirm if they want to export data
+    # need to confirm if they want to export data
+
+    print("\nExiting...\n")

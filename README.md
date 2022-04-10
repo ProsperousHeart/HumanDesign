@@ -4,8 +4,7 @@ This repo will be to assist people in learning more about their Human Design cha
 # Must Haves
 
 1. Ability for user to provide the following:<br><br>
-    - type (strategies are based on type)
-    - signature
+    - type (strategies/signatures are based on type)
     - definition (optional)
     - authority
     - profile
@@ -28,6 +27,24 @@ This repo will be to assist people in learning more about their Human Design cha
 Classes will be created per energy center & major section (_e.g.:  type, signature, authority, etc_). Each one has its own unique needs, and each person's "chart" should be able to pull them together.
 
 As a user provides data about their chart, instances of the respective classes will be created. When the data is read in from a local file or a Google sheet, they will be re-created for easy access.
+
+## XLSX Structure
+
+This section will outline what will be exported (and thus imported) from our program.
+
+### Sheet 1:  Type & Strategy
+
+**Tab Name:**  Type
+
+**Columns**
+1. 
+
+### Sheet 2:  Centers
+
+**Tab Name:**  Centers
+
+**Columns**
+1. 
 
 # Resources
 
