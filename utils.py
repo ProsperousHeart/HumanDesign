@@ -129,6 +129,15 @@ class TypeStrat:
         print(f"Not-Self Theme:\t{self.nst}")
         print(f"Pages:\t\t{self.pgs}")
 
+    def toDict(self):
+        return {
+            "Type": self.en_type,
+            "Strategy": self.strat,
+            "Signature": self.sig,
+            "Not-Self": self.nst,
+            "Pages": self.pgs
+        }
+
 
 class EnrgyCntr:
     def __init__(self, cntr_num: int, def_bool: bool):
@@ -175,3 +184,12 @@ class EnrgyCntr:
         print(f"Pages:\t{self._pgs}")
         print(f"Defined?:\t{str(self._def_bool)}")
         print(f"Active Gates:\t\t{self._actv_gts}")
+
+    def toDict(self):
+        return {
+            "Center": self._cntr,
+            "Explanations": self._explns,
+            "Pages": self._pgs,
+            "Definition": self._def_bool,
+            "Gates": ', '.join(str(item) for item in self._actv_gts)
+        }
