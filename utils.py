@@ -11,13 +11,13 @@ type_choice = """0:\tManifestor
 4:\tReflector"""
 
 type_dict = {
-    "manifestor": ["energy", "to inform",
+    "Manifestor": ["energy", "to inform",
                    "peace", "anger", "116-122"],
-    "generator": ["energy", "to respond",
+    "Generator": ["energy", "to respond",
                   "satisfaction", "frustration", "123-128"],
-    "projector": ["non-energy", "waiting for the invitation",
+    "Projector": ["non-energy", "waiting for the invitation",
                   "success", "bitterness", "129-136"],
-    "reflector": ["non-energy", "waiting a lunar cycle",
+    "Reflector": ["non-energy", "waiting a lunar cycle",
                   "surprise", "disappointment", "137-147"]
 }
 
@@ -79,13 +79,17 @@ class TypeStrat:
 
     def __init__(self, type_num: int):
         if type_num == 0:   # manifestor
-            en_type, strat, sig, nst, pgs = type_dict["manifestor"]
+            en_type, strat, sig, nst, pgs = type_dict["Manifestor"]
         elif type_num in [1, 2]:   # generator or mani-gen
-            en_type, strat, sig, nst, pgs = type_dict["generator"]
+            en_type, strat, sig, nst, pgs = type_dict["Generator"]
+            if type_num == 2:
+                en_type = "Manifesting Generator"
+            else:
+                en_type = "Generator"
         elif type_num == 3:   # projector
-            en_type, strat, sig, nst, pgs = type_dict["projector"]
+            en_type, strat, sig, nst, pgs = type_dict["Projector"]
         else:   # reflector
-            en_type, strat, sig, nst, pgs = type_dict["reflector"]
+            en_type, strat, sig, nst, pgs = type_dict["Reflector"]
 
         self.en_type = en_type
         self.strat = strat
