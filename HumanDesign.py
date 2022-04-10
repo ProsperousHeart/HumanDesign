@@ -45,8 +45,8 @@ def get_gates():
 
 
 def get_cntrs():
-    def set_def(ctr_num: int, center: str):
-        print(f"\nIs your {center} defined or undefined?\n")
+    def set_def(ctr_num: int, cntr: str):
+        print(f"\nIs your {cntr} defined or undefined?\n")
         while True:
             resp = input("1:\tDefined (colored in)\n2:\tUndefined (white)\n")
             if resp not in ["1", "2"]:
@@ -67,11 +67,12 @@ def get_cntrs():
                             break
                 return utils.EnrgyCntr(ctr_num, resp), comp_open
 
-    def det_gates(ctr_num: int, center: str, gates: list):
+    # def det_gates(ctr_num: int, cntr: str, gates: list):
+    def det_gates(cntr: str, gates: list):
         gates_list = []
         for gate in gates:
             while True:
-                print(f"\nIn your {center} center, is gate {gate} activated?")
+                print(f"\nIn your {cntr} center, is gate {gate} activated?")
                 actv_num = input(utils.gate_choice)
                 if actv_num not in ["1", "2", "3", "4"]:
                     print("\nPlease provide a 1, 2, 3, or 4\n")
@@ -88,7 +89,8 @@ def get_cntrs():
     for cntr_num, data in ctr_gates.items():
         center, open_bool = set_def(cntr_num, data[0])
         if open_bool is False:
-            center._actv_gts = det_gates(cntr_num, data[0], data[1])
+            # center._actv_gts = det_gates(cntr_num, data[0], data[1])
+            center._actv_gts = det_gates(data[0], data[1])
         print(f"{center._cntr} active gates:\t{center._actv_gts}")
         center_list.append(center)
 
@@ -110,8 +112,10 @@ def get_type():
 
 def start_new():
 
+    usr_data_list = list()
+
     # get type from user - this determines strategy
-    get_type()
+    usr_data_list.append(get_type())
 
     # get authority from user
     ctrs_lst = get_cntrs()
@@ -130,6 +134,8 @@ def start_new():
 
     print("\nThe rest of the section for new data not yet coded.")
 
+    return usr_data_list
+
 
 if __name__ == "__main__":
     # find out if new input or pulling from file/link
@@ -139,7 +145,7 @@ if __name__ == "__main__":
     elif init == 2:
         import_data()
     else:
-        start_new()
+        usr_data = start_new()
         export_data()
 
     # need to confirm if they want to export data
