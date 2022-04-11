@@ -1,4 +1,5 @@
 import utils
+import file_manipulations as fm
 
 
 def welcome():
@@ -18,8 +19,17 @@ def welcome():
     return chk
 
 
-def export_data(center_list):
-    print("Exporting data is not yet coded. Exiting.")
+def export_data(data_dict: dict):
+    # print("Exporting data is not yet coded. Exiting.")
+    while True:
+        export_choice = input(f"{utils.export_choice}").strip()
+        if export_choice not in ["1", "2", "3"]:
+            print("Please provide a 1, 2, or 3 to continue.")
+        else:
+            data_dict["Centers"] = [item.toDict() for item in data_dict["Centers"]]
+            dict_data = {key: item.toDict() for key, item in data_dict.items()}
+            fm.write2file(int(export_choice), dict_data)
+            break
 
 
 def import_data():
@@ -112,15 +122,17 @@ def get_type():
 
 def start_new():
 
-    usr_data_list = list()
+    usr_data_dict = dict()
 
     # get type from user - this determines strategy
-    usr_data_list.append(get_type())
+    usr_data_dict["Type"] = [get_type(), ]
 
     # get authority from user
-    ctrs_lst = get_cntrs()
+    # ctrs_lst = get_cntrs()
+    ctrs_lst = utils.temp_ctrs
     for ctr in ctrs_lst:
         ctr.print_ctr()
+    usr_data_dict["Centers"] = ctrs_lst
 
     # get center info from user = gates (active/inactive)
 
@@ -134,7 +146,7 @@ def start_new():
 
     print("\nThe rest of the section for new data not yet coded.")
 
-    return usr_data_list
+    return usr_data_dict
 
 
 if __name__ == "__main__":
@@ -145,8 +157,9 @@ if __name__ == "__main__":
     elif init == 2:
         import_data()
     else:
-        usr_data = start_new()
-        export_data()
+        usr_data_dict = start_new()
+        print(usr_data_dict)
+        export_data(usr_data_dict)
 
     # need to confirm if they want to export data
 
