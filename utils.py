@@ -10,6 +10,11 @@ type_choice = """0:\tManifestor
 3:\tProjector
 4:\tReflector"""
 
+export_choice = """How would you like to export?
+1:  XLSX
+2:  Google sheet
+3:  Exit (no saving)\n"""
+
 type_dict = {
     "Manifestor": ["energy", "to inform",
                    "peace", "anger", "116-122"],
@@ -140,13 +145,13 @@ class TypeStrat:
 
 
 class EnrgyCntr:
-    def __init__(self, cntr_num: int, def_bool: bool):
+    def __init__(self, cntr_num: int, def_bool: bool, active_gates: list = []):
         center = en_ctrs[cntr_num]
         self._cntr = center[0]
         self._explns = center[1]
         self._pgs = center[2]
         self._def_bool = def_bool
-        self._actv_gts = []
+        self._actv_gts = active_gates
 
         @property
         def cntr(self):
@@ -193,3 +198,15 @@ class EnrgyCntr:
             "Definition": self._def_bool,
             "Gates": ', '.join(str(item) for item in self._actv_gts)
         }
+
+temp_ctrs = [
+    EnrgyCntr(1, False, [(62, 2), (31, 2)]),  # throat
+    EnrgyCntr(2, False, [(61, 2), (63, 1)]), # head
+    EnrgyCntr(3, True, [(58, 3), (54, 2)]),  # root
+    EnrgyCntr(4, False, []),  # ajna
+    EnrgyCntr(5, True, [(50, 1), (32, 3), (28, 3)]),  # splenic
+    EnrgyCntr(6, False, [(36, 3), ]),  # solar plexus
+    EnrgyCntr(7, False, [(26, 3), ]),  # heart
+    EnrgyCntr(8, False, [(34, 2), (59, 2), (9, 1), (3, 1), (42, 3)]),  # sacral
+    EnrgyCntr(9, False, [(2, 1), (15, 1)]),  # g center
+]
