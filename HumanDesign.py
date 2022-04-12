@@ -20,14 +20,18 @@ def welcome():
 
 
 def export_data(data_dict: dict):
-    # print("Exporting data is not yet coded. Exiting.")
+    def convert_ddict(ddict: dict):
+        temp_dict = dict()
+        for key, vals in ddict.items():
+            temp_dict[key] = [item.toDict() for item in vals]
+        return temp_dict
+
     while True:
         export_choice = input(f"{utils.export_choice}").strip()
         if export_choice not in ["1", "2", "3"]:
             print("Please provide a 1, 2, or 3 to continue.")
         else:
-            data_dict["Centers"] = [item.toDict() for item in data_dict["Centers"]]
-            dict_data = {key: item.toDict() for key, item in data_dict.items()}
+            dict_data = convert_ddict(data_dict)
             fm.write2file(int(export_choice), dict_data)
             break
 
@@ -128,21 +132,20 @@ def start_new():
     usr_data_dict["Type"] = [get_type(), ]
 
     # get authority from user
+
+    # get center info from user = gates (active/inactive)
+    # channels can be coded, but consider getting manually
     # ctrs_lst = get_cntrs()
     ctrs_lst = utils.temp_ctrs
     for ctr in ctrs_lst:
         ctr.print_ctr()
     usr_data_dict["Centers"] = ctrs_lst
 
-    # get center info from user = gates (active/inactive)
-
     # get profile from user
 
     # get incarnation cross from user
 
     # get activations from user
-
-    # get gates (& channels) from user
 
     print("\nThe rest of the section for new data not yet coded.")
 
@@ -158,9 +161,9 @@ if __name__ == "__main__":
         import_data()
     else:
         usr_data_dict = start_new()
-        print(usr_data_dict)
-        export_data(usr_data_dict)
+        # print(usr_data_dict)
 
-    # need to confirm if they want to export data
+        # need to confirm if they want to export data
+        export_data(usr_data_dict)
 
     print("\nExiting...\n")
