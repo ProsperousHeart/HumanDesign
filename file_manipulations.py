@@ -12,20 +12,33 @@ Please close the file and press ENTER to continue ...
 # read in a file - allow them to choose a file
 
 # export to XLSX
-
-
 def create_workbook(info2prop: dict):
     """
     This function takes in a file name string and sets up
     the empty workbook with which to add data to.
     It returns the Workbook object to manipulate the data.
     """
+
     def create_style(wb):
+        """
+
+        :param wb:
+        :return:
+        """
+
         bold = NamedStyle(name="bold")
         bold.font = Font(bold=True)
         wb.add_named_style(bold)
 
     def create_sheets(new_wb: Workbook, sheets: list, data_dict: dict):
+        """
+
+        :param new_wb:
+        :param sheets:
+        :param data_dict:
+        :return:
+        """
+
         for idx0, sheet in enumerate(sheets):
             if idx0 == 0:
                 wbs = new_wb.active
@@ -57,6 +70,13 @@ def create_workbook(info2prop: dict):
 
 
 def write2file(file_type: int, data_lst: dict):
+    """
+
+    :param file_type:
+    :param data_lst:
+    :return:
+    """
+
     if file_type == 1:  # XLSX file
         wb = create_workbook(data_lst)
         try:
