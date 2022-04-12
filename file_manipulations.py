@@ -5,6 +5,10 @@ from openpyxl.styles import NamedStyle, Font
 
 dest_filename = "Human Design Data.xlsx"
 
+perm_err = """\nUnable to save file - it is likely open.
+Please close the file and press ENTER to continue ...
+(If the file is already closed, this program will error out...)\n"""
+
 # read in a file - allow them to choose a file
 
 # export to XLSX
@@ -22,32 +26,28 @@ def create_workbook(info2prop: dict):
         wb.add_named_style(bold)
 
     def create_sheets(new_wb: Workbook, sheets: list, data_dict: dict):
-        for sheet in sheets:
-            wbs = new_wb.create_sheet(sheet)
+        for idx0, sheet in enumerate(sheets):
+            if idx0 == 0:
+                wbs = new_wb.active
+                wbs.title = sheet
+            else:
+                wbs = new_wb.create_sheet(sheet)
 
             cols = list()
             if sheet == "Type":
-                cols = ["Type", "Strategy", "Signature", "Not-Self", "Pages"]
+                cols = ["HD Type", "Energy Type", "Strategy", "Signature", "Not-Self", "Pages"]
             elif sheet == "Centers":
                 cols = ["Center", "Explanations", "Pages", "Definition", "Gates"]
 
             if len(cols) == 0:
                 print("There was an issue with creating sheets!")
             else:
-                # row = sheet.row_dimensions[1]
                 dct_list = data_dict[sheet]
-                # for col in wb_sheet.iter_cols(min_row=1, max_col=len(cols), max_row=2):
-                #     loc = 0
-                #     for cell in col:
-                #         wbs[cell] = cols[loc]
-                #         wbs[cell].style = 'bold'
-                #         wbs.cell(row=2, column=col)
-                #         loc += 1
                 for idx, col_name in enumerate(cols):
                     wbs.cell(row=1, column=idx+1).value = col_name
                     for idx2, item in enumerate(dct_list):
                         idx2 += 1
-                        wbs.cell(row=1+idx2, column=idx+1).value = item[col_name]
+                        wbs.cell(row=1+idx2, column=idx+1).value = str(item[col_name])
 
     workbook = Workbook()
     create_style(workbook)
@@ -59,7 +59,15 @@ def create_workbook(info2prop: dict):
 def write2file(file_type: int, data_lst: dict):
     if file_type == 1:  # XLSX file
         wb = create_workbook(data_lst)
-        wb.save(dest_filename)
+        try:
+            wb.save(dest_filename)
+        except PermissionError as err:
+            input(perm_err)
+        finally:
+            try:
+                wb.save(dest_filename)
+            except PermissionError as err:
+                print("Unfortunately there is another permissions issue. Exiting the program.")
     else:
         print("Other file types (like exporting to Google sheets) are not yet written.")
 
