@@ -16,14 +16,16 @@ export_choice = """How would you like to export?
 3:  Exit (no saving)\n"""
 
 type_dict = {
-    "Manifestor": ["energy", "to inform",
-                   "peace", "anger", "116-122"],
-    "Generator": ["energy", "to respond",
-                  "satisfaction", "frustration", "123-128"],
-    "Projector": ["non-energy", "waiting for the invitation",
-                  "success", "bitterness", "129-136"],
-    "Reflector": ["non-energy", "waiting a lunar cycle",
-                  "surprise", "disappointment", "137-147"]
+    0: ["Manifestor", "energy", "to inform",
+        "peace", "anger", "116-122"],
+    1: ["Generator", "energy", "to respond",
+        "satisfaction", "frustration", "123-128"],
+    2: ["Manifesting Generator", "energy", "to respond",
+        "satisfaction", "frustration", "123-128"],
+    3: ["Projector", "non-energy", "waiting for the invitation",
+        "success", "bitterness", "129-136"],
+    4: ["Reflector", "non-energy", "waiting a lunar cycle",
+        "surprise", "disappointment", "137-147"]
 }
 
 en_ctrs = {
@@ -83,19 +85,10 @@ class TypeStrat:
     #   - has own not-self theme (when out of alignment)
 
     def __init__(self, type_num: int):
-        if type_num == 0:   # manifestor
-            en_type, strat, sig, nst, pgs = type_dict["Manifestor"]
-        elif type_num in [1, 2]:   # generator or mani-gen
-            en_type, strat, sig, nst, pgs = type_dict["Generator"]
-            if type_num == 2:
-                en_type = "Manifesting Generator"
-            else:
-                en_type = "Generator"
-        elif type_num == 3:   # projector
-            en_type, strat, sig, nst, pgs = type_dict["Projector"]
-        else:   # reflector
-            en_type, strat, sig, nst, pgs = type_dict["Reflector"]
 
+        hd_type, en_type, strat, sig, nst, pgs = type_dict[type_num]
+
+        self.hd_type = hd_type
         self.en_type = en_type
         self.strat = strat
         self.sig = sig
@@ -128,7 +121,8 @@ class TypeStrat:
             return self._pgs
 
     def print_type(self):
-        print(f"\nType:\t\t{self.en_type}")
+        print(f"\nHuman Design Type:\t{self.hd_type}")
+        print(f"Energy Type:\t\t{self.en_type}")
         print(f"Strategy:\t{self.strat}")
         print(f"Signature:\t{self.sig}")
         print(f"Not-Self Theme:\t{self.nst}")
@@ -136,7 +130,8 @@ class TypeStrat:
 
     def toDict(self):
         return {
-            "Type": self.en_type,
+            "HD Type": self.hd_type,
+            "Energy Type": self.en_type,
             "Strategy": self.strat,
             "Signature": self.sig,
             "Not-Self": self.nst,
