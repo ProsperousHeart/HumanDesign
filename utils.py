@@ -87,6 +87,10 @@ class TypeStrat:
       - has own not-self theme (when out of alignment)"""
 
     def __init__(self, type_num: int):
+        """
+
+        :param type_num:
+        """
 
         hd_type, en_type, strat, sig, nst, pgs = type_dict[type_num]
 
@@ -123,6 +127,7 @@ class TypeStrat:
             return self._pgs
 
     def print_type(self):
+        """Function to print info of class object."""
         print(f"\nHuman Design Type:\t{self.hd_type}")
         print(f"Energy Type:\t\t{self.en_type}")
         print(f"Strategy:\t{self.strat}")
@@ -131,6 +136,7 @@ class TypeStrat:
         print(f"Pages:\t\t{self.pgs}")
 
     def toDict(self):
+        """Returns dictionary version of class object data."""
         return {
             "HD Type": self.hd_type,
             "Energy Type": self.en_type,
@@ -142,7 +148,18 @@ class TypeStrat:
 
 
 class EnrgyCntr:
+    """
+
+    """
+
     def __init__(self, cntr_num: int, def_bool: bool, active_gates: list = []):
+        """
+
+        :param cntr_num:
+        :param def_bool:
+        :param active_gates:
+        """
+
         center = en_ctrs[cntr_num]
         self._cntr = center[0]
         self._explns = center[1]
@@ -181,6 +198,7 @@ class EnrgyCntr:
             self._actv_gts = val_list
 
     def print_ctr(self):
+        """Function to print info of class object."""
         print(f"\nCenter:\t\t{self._cntr}")
         print(f"Explanations:\t{self._explns}")
         print(f"Pages:\t{self._pgs}")
@@ -188,6 +206,7 @@ class EnrgyCntr:
         print(f"Active Gates:\t\t{self._actv_gts}")
 
     def toDict(self):
+        """Returns dictionary version of class object data."""
         return {
             "Center": self._cntr,
             "Explanations": self._explns,
