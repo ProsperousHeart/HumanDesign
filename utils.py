@@ -76,13 +76,15 @@ gate_choice = """1:\tYes, red (design) only
 
 
 class TypeStrat:
-    # this information is in section 4 starting on page 113
-    # determine set info about the types
-    # each type:
-    #   - is either energy or non-energy
-    #   - has its own strategy
-    #   - has its own signature (when in alignment)
-    #   - has own not-self theme (when out of alignment)
+    """Class for HD Types & Strategies.
+
+    This information is in section 4 starting on page 113 of the book.
+    This class will allow for providing set info about the types for
+    a particular user. Each type:
+      - is either energy or non-energy
+      - has its own strategy
+      - has its own signature (when in alignment)
+      - has own not-self theme (when out of alignment)"""
 
     def __init__(self, type_num: int):
 
