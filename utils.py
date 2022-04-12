@@ -152,7 +152,7 @@ class EnrgyCntr:
 
     """
 
-    def __init__(self, cntr_num: int, def_bool: bool, active_gates: list = []):
+    def __init__(self, cntr_num: int, def_bool: bool, active_gates: list):
         """
 
         :param cntr_num:
@@ -215,9 +215,10 @@ class EnrgyCntr:
             "Gates": ', '.join(str(item) for item in self._actv_gts)
         }
 
+
 temp_ctrs = [
     EnrgyCntr(1, False, [(62, 2), (31, 2)]),  # throat
-    EnrgyCntr(2, False, [(61, 2), (63, 1)]), # head
+    EnrgyCntr(2, False, [(61, 2), (63, 1)]),  # head
     EnrgyCntr(3, True, [(58, 3), (54, 2)]),  # root
     EnrgyCntr(4, False, []),  # ajna
     EnrgyCntr(5, True, [(50, 1), (32, 3), (28, 3)]),  # splenic
@@ -226,3 +227,58 @@ temp_ctrs = [
     EnrgyCntr(8, False, [(34, 2), (59, 2), (9, 1), (3, 1), (42, 3)]),  # sacral
     EnrgyCntr(9, False, [(2, 1), (15, 1)]),  # g center
 ]
+
+auth_dict = {
+    0: (None, None, "106-112"),
+    1: ("Solar Plexus", "Emotional Authority", "107"),
+    2: ("Sacral", "Sacral Authority", "107-108"),
+    3: ("Spleen", "Splenic Authority", "108"),
+    4: ("Heart", "Ego Authority", "109"),
+    5: ("G", "Self Authority", "110"),
+    6: ("Environment", "No Inner Authority", "110"),
+    7: ("Moon", "Lunar Cycle", "111")
+}
+
+
+class Authority:
+    """TBD"""
+
+    def __init__(self, auth_num: int, spc_num: int = None):
+        """Initialization function for creating Authority."""
+        self._cntr = auth_dict[auth_num][0]
+        if auth_num == 4:  # heart center (2 types)
+            if spc_num == 1:
+                spc = "Manifested"
+            else:  # spc_num == 2
+                spc = "Projected"
+            self._auth = f"{auth_dict[auth_num][1]} ({spc})"
+        else:
+            self._auth = auth_dict[auth_num][1]
+        self._pgs = auth_dict[auth_num][2]
+
+        @property
+        def cntr(self):
+            """The center that determines authority."""
+            return self._cntr
+
+        @property
+        def auth(self):
+            """Get authority."""
+            return self._auth
+
+        @property
+        def pgs(self):
+            """Get authority."""
+            return self._pgs
+
+    def print_Auth(self):
+        """Function to print info of class object."""
+        print(f"Determining Center:\t{self._cntr}")
+        print(f"Authority:\t\t{self._auth}")
+        print(f"Pages In Book:\t\t{self._pgs}")
+
+    def toDict(self):
+        """Returns dictionary version of class object data."""
+        return {"Determining Center": self._cntr,
+                "Authority": self._auth,
+                "Pages": self._pgs}
